@@ -6,3 +6,5 @@ API_sumo.md
 node_modules/
 package-lock.json
 yarn.lock
+.idea/workspace.xml
+.DS_Store

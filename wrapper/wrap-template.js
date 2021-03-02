@@ -20,17 +20,15 @@
 
       try {
         libsodiumInit();
-        var message = new Uint8Array([98, 97, 108, 108, 115]);
-        var nonce = exports.randombytes_buf(exports.crypto_secretbox_NONCEBYTES);
-        var key = exports.randombytes_buf(exports.crypto_secretbox_KEYBYTES);
-        var encrypted = exports.crypto_secretbox_easy(message, nonce, key);
-        var decrypted = exports.crypto_secretbox_open_easy(encrypted, nonce, key);
+        var message = "foo";
+        var digest_bytes = sodium.crypto_hash_sha256(message);
+        var digest_expected = "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae";
 
-        if (exports.memcmp(message, decrypted)) {
+        if (sodium.to_hex(digest_bytes) === digest_expected){//exports.memcmp(digest_bytes, digest_expected_bytes)) {
           return;
         }
       }
-      catch (err) { 
+      catch (err) {
         if (libsodium.useBackupModule == null) {
           throw new Error("Both wasm and asm failed to load" + err)
         }
