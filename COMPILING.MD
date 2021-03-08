@@ -10,7 +10,7 @@ make             # clone libsodium, build libsodium, build wrappers, combine int
 cd libsodium     # cd Sodium submodule (C code)
 cd dist-build
 
-# only keep ristretto (and _sodium internals)
+# Only keep Ristretto255 (and _sodium internals)
 perl -pi -e "s/1/0/g" ./emscripten-symbols.def
 perl -pi -e "s/0/1/g if /^*ristretto/" ./emscripten-symbols.def
 #perl -pi -e "s/0/1/g if /^*_sodium/" ./emscripten-symbols.def
